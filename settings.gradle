@@ -1,0 +1,4 @@
+rootProject.name = 'my-food'
+
+include 'orders-api'
+include 'common-schema'
