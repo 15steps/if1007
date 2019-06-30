@@ -6,6 +6,10 @@ import br.ufpe.cin.internal.OrderStatus;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Service
 public class PaymentService {
 
@@ -39,8 +43,19 @@ public class PaymentService {
         return number.replaceAll("[^0-9]","");
     }
 
-    private boolean dateCheck(CardInfo cardInfo) {
-        return true;
+    public String processDate(String date) {
+        return date.replaceAll("[-.,;|/\\s]", "/");
+    }
+
+    public boolean dateCheck(CardInfo cardInfo) {
+        try {
+            String dateString = processDate(cardInfo.getExp());
+            Date date = new SimpleDateFormat("MM/yyyy").parse(dateString);
+            return date.after(new Date());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     private boolean luhnCheck(CardInfo cardInfo) {

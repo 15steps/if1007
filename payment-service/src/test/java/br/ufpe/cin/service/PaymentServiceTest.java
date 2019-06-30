@@ -58,4 +58,36 @@ public class PaymentServiceTest {
         Assert.assertTrue(orderCached.getStatus() == OrderStatus.PAYMENT_DENIED);
     }
 
+    @Test
+    public void testInvalidCardDate(){
+        Order order = Order
+                .builder()
+                .cardInfo(new CardInfo("4686.8642.9561.5910", "10/2010"))
+                .status(OrderStatus.PAYMENT_PENDING)
+                .build();
+
+        Order orderAux = paymentService.process(order);
+        Assert.assertTrue(orderAux.getStatus() == OrderStatus.PAYMENT_DENIED);
+
+        Order orderCached = paymentService.process(order);
+        Assert.assertTrue(orderCached.getStatus() == OrderStatus.PAYMENT_DENIED);
+    }
+
+    @Test
+    public void testValidDate(){
+        CardInfo cardInfo = new CardInfo("4686.8642.9561.5910", "10/2020");
+        Assert.assertTrue(paymentService.dateCheck(cardInfo));
+    }
+
+    @Test
+    public void testInvalidDate(){
+        CardInfo cardInfo = new CardInfo("4686.8642.9561.5910", "05/2019");
+        Assert.assertFalse(paymentService.dateCheck(cardInfo));
+    }
+
+    @Test
+    public void testInvalidFormmatDate(){
+        CardInfo cardInfo = new CardInfo("4686.8642.9561.5910", "062020");
+        Assert.assertFalse(paymentService.dateCheck(cardInfo));
+    }
 }
