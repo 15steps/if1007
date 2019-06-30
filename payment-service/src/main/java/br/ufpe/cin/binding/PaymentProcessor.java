@@ -2,6 +2,7 @@ package br.ufpe.cin.binding;
 
 import br.ufpe.cin.internal.Order;
 import br.ufpe.cin.internal.OrderStatus;
+import br.ufpe.cin.service.PaymentService;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.Output;
 import org.springframework.cloud.stream.annotation.StreamListener;
@@ -14,7 +15,7 @@ public class PaymentProcessor {
     @StreamListener(Processor.INPUT)
     @Output(Processor.OUTPUT)
     public Order handlePayment(Order order) {
-        return null;
+        return PaymentService.process(order);
     }
 
     @StreamListener("errorChannel")
