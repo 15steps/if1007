@@ -9,4 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CardInfo {
     private String cardNumber;
+    private String exp;
 }

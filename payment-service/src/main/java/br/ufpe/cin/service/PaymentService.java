@@ -3,22 +3,44 @@ package br.ufpe.cin.service;
 import br.ufpe.cin.internal.CardInfo;
 import br.ufpe.cin.internal.Order;
 import br.ufpe.cin.internal.OrderStatus;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PaymentService {
 
+    private RedisTemplate<String, Boolean> redisTemplate;
+
+    public PaymentService(RedisTemplate<String, Boolean> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
+
     public Order process(Order order) {
-        if (order != null) {
-            CardInfo card = order.getCardInfo();
-            boolean validate = luhnCheck(card);
-            order.setStatus( validate ? OrderStatus.PAYMENT_ACCEPTED : OrderStatus.PAYMENT_DENIED );
+
+        CardInfo card = order.getCardInfo();
+        String number = processNumber(card.getCardNumber());
+        Boolean valid = redisTemplate.opsForValue().get(number);
+
+        if (valid == null) {
+            boolean checked = luhnCheck(card) && dateCheck(card);
+            setStatus(order, checked);
+            redisTemplate.opsForValue().set(number, checked);
+        }else{
+            setStatus(order, valid);
         }
         return  order;
     }
 
-    private String processNumber(String number) {
+    private void setStatus(Order order, boolean valid) {
+        order.setStatus( valid ? OrderStatus.PAYMENT_ACCEPTED : OrderStatus.PAYMENT_DENIED );
+    }
+
+    public String processNumber(String number) {
         return number.replaceAll("[^0-9]","");
+    }
+
+    private boolean dateCheck(CardInfo cardInfo) {
+        return true;
     }
 
     private boolean luhnCheck(CardInfo cardInfo) {
