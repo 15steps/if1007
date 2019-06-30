@@ -17,6 +17,7 @@ public class Order {
     private String id;
     private String customerId;
     private String restaurantId;
+    private CardInfo cardInfo;
     private List<OrderItem> orderItems;
     @Builder.Default
     private OrderStatus status = PAYMENT_PENDING;
