@@ -6,8 +6,18 @@ services:
     ports: 
       - 15672:15672
       - 5672:5672
+    restart: on-failure
     networks: 
       - skynet
+  postgres:
+    image: postgres
+    restart: on-failure
+    volumes:
+      - db:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
 
 networks: 
   skynet:
+volumes:
+  db:
