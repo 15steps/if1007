@@ -1,0 +1,18 @@
+{
+  "customerId": 1,
+  "restaurantId": 1,
+  "items": [
+    {
+      "item": {
+        "id": 1,
+        "name": "Coca lata 350",
+        "description": "Bebida",
+        "price": 4.5
+      },
+      "quantity": 2
+    }
+  ],
+  "cardInfo": {
+    "cardNumber": "10384823957230"
+  }
+}
