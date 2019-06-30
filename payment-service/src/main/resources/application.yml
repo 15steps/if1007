@@ -1,0 +1,22 @@
+spring:
+  main:
+    web-application-type: none
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  cloud.stream:
+    rabbit:
+      bindings:
+        input:
+          consumer:
+            auto-bind-dlq: true
+            republish-to-dlq: true
+    bindings:
+      input:
+        destination: payment-service-pipe
+        group: payment-service
+      output:
+        destination: restaurant-service-pipe
+        contentType: application/json

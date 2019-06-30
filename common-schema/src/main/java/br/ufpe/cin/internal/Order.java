@@ -5,11 +5,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
+import static br.ufpe.cin.internal.OrderStatus.PAYMENT_PENDING;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
 public class Order {
     private String id;
-    private Long customerId;
+    private String customerId;
+    private String restaurantId;
+    private List<OrderItem> orderItems;
+    @Builder.Default
+    private OrderStatus status = PAYMENT_PENDING;
 }

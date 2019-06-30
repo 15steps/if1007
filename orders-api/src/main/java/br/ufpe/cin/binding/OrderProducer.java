@@ -14,6 +14,9 @@ public class OrderProducer {
     }
 
     public void publish(Order order) {
-        source.output().send(MessageBuilder.withPayload(order).build());
+        source.output().send(
+                MessageBuilder.withPayload(order)
+                        .setHeader("order-id", order.getId())
+                        .build());
     }
 }

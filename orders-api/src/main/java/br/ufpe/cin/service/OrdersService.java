@@ -1,6 +1,7 @@
 package br.ufpe.cin.service;
 
 import br.ufpe.cin.binding.OrderProducer;
+import br.ufpe.cin.dto.OrderDTO;
 import br.ufpe.cin.internal.Order;
 import br.ufpe.cin.internal.OrderConfirmation;
 import org.slf4j.Logger;
@@ -15,16 +16,19 @@ import java.util.UUID;
 @Service
 public class OrdersService {
     private final Logger logger = LoggerFactory.getLogger(OrdersService.class);
-    private OrderProducer producer;
+    private final OrderProducer producer;
 
     public OrdersService(OrderProducer producer) {
         this.producer = producer;
     }
 
-    public OrderConfirmation createOrder() {
+    public OrderConfirmation createOrder(OrderDTO orderDTO) {
         String uuid = generateUUID();
         Order order = Order.builder()
                 .id(uuid)
+                .customerId(orderDTO.getCustomerId())
+                .restaurantId(orderDTO.getRestaurantId())
+                .orderItems(orderDTO.getItems())
                 .build();
         producer.publish(order);
         return OrderConfirmation
