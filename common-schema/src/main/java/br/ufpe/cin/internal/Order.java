@@ -20,4 +20,5 @@ public class Order {
     private List<OrderItem> orderItems;
     @Builder.Default
     private OrderStatus status = PAYMENT_PENDING;
+    private Double totalAmountDue;
 }

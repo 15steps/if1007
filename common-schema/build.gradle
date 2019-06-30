@@ -13,6 +13,7 @@ repositories {
 
 dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.8'
+    compileOnly 'javax.validation:validation-api:2.0.1.Final'
     annotationProcessor 'org.projectlombok:lombok:1.18.8'
 }
 

@@ -24,17 +24,25 @@ public class OrdersService {
 
     public OrderConfirmation createOrder(OrderDTO orderDTO) {
         String uuid = generateUUID();
+        Double amountDue = computeTotalAmountDue(orderDTO);
         Order order = Order.builder()
                 .id(uuid)
                 .customerId(orderDTO.getCustomerId())
                 .restaurantId(orderDTO.getRestaurantId())
                 .orderItems(orderDTO.getItems())
+                .totalAmountDue(amountDue)
                 .build();
         producer.publish(order);
         return OrderConfirmation
                 .builder()
                 .orderId(uuid)
                 .build();
+    }
+
+    private Double computeTotalAmountDue(OrderDTO orderDTO) {
+        return orderDTO.getItems().stream()
+                .mapToDouble(it -> it.getQuantity()  *  it.getItem().getPrice())
+                .sum();
     }
 
     private String generateUUID() {
