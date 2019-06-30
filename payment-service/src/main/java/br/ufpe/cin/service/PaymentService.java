@@ -3,10 +3,12 @@ package br.ufpe.cin.service;
 import br.ufpe.cin.internal.CardInfo;
 import br.ufpe.cin.internal.Order;
 import br.ufpe.cin.internal.OrderStatus;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PaymentService {
 
-    public static Order process(Order order) {
+    public Order process(Order order) {
         if (order != null) {
             CardInfo card = order.getCardInfo();
             boolean validate = luhnCheck(card);
@@ -15,11 +17,11 @@ public class PaymentService {
         return  order;
     }
 
-    private static String processNumber(String number) {
+    private String processNumber(String number) {
         return number.replaceAll("[^0-9]","");
     }
 
-    private static boolean luhnCheck(CardInfo cardInfo) {
+    private boolean luhnCheck(CardInfo cardInfo) {
         int sum = 0;
         boolean alternate = false;
         String cardNumber = processNumber(cardInfo.getCardNumber());
