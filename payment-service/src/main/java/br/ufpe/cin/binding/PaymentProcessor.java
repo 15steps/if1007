@@ -13,9 +13,8 @@ public class PaymentProcessor {
 
     @StreamListener(Processor.INPUT)
     @Output(Processor.OUTPUT)
-    public Order handlePayment(Message<Order> orderMessage) {
-        System.out.println(orderMessage.getHeaders());
-        throw new RuntimeException("An error occurred while processing payment for order " + orderMessage.getPayload().getId());
+    public Order handlePayment(Order order) {
+        return null;
     }
 
     @StreamListener("errorChannel")
