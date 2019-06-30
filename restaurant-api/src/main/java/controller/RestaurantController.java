@@ -1,11 +1,9 @@
 package controller;
 
-import br.ufpe.cin.internal.Order;
+import model.OrderP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import service.RestaurantService;
 
 import java.util.List;
@@ -22,8 +20,18 @@ public class RestaurantController {
     }
 
     @GetMapping
-    public List<Order> ListOrders() {
-        return null;
+    public List<OrderP> ListOrders() {
+        return restaurantService.getAllOrders();
+    }
+
+    @GetMapping(value = "/{restaurantId}")
+    public List<OrderP> listOrdersByRestaurantId(@PathVariable String restaurantId){
+        return restaurantService.getAllOrdersByRestaurantId(restaurantId);
+    }
+
+    @PostMapping(value = "orderUpdate")
+    public void orderUpdate(){
+
     }
 
 
