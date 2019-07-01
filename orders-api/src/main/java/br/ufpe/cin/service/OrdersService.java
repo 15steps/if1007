@@ -31,6 +31,7 @@ public class OrdersService {
                 .restaurantId(orderDTO.getRestaurantId())
                 .orderItems(orderDTO.getItems())
                 .totalAmountDue(amountDue)
+                .cardInfo(orderDTO.getCardInfo())
                 .build();
         producer.publish(order);
         return OrderConfirmation

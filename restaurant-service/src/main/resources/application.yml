@@ -9,5 +9,8 @@ spring:
       input:
         destination: credit-service-pipe
         group: credit-service
+  data:
+    mongodb:
+      host: ${MONGO_HOST:localhost}
 server:
   port: ${SERVER_PORT:9090}

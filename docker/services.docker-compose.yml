@@ -1,0 +1,26 @@
+version: "3.7"
+
+services:
+  orders-api:
+    build:
+      context: ../orders-api
+    environment:
+      - RABBIT_HOST=rabbit
+    ports:
+      - 8080:8080
+  payment-service:
+    build:
+      context: ../payment-service
+    environment:
+      - RABBIT_HOST=rabbit
+      - REDIS_HOST=redis
+  restaurant-service:
+    build:
+      context: ../restaurant-service
+    environment:
+      - RABBIT_HOST=rabbit
+      - MONGO_HOST=mongo
+
+networks:
+  default:
+    name: skynet

@@ -1,15 +1,15 @@
 version: "3.7"
 
 services: 
-  rabbitmq:
+  rabbit:
+    container_name: rabbit
     image: rabbitmq:3-management
     ports: 
       - 15672:15672
       - 5672:5672
     restart: on-failure
-    networks: 
-      - skynet
   mongo:
+    container_name: mongo
     image: mongo
     restart: on-failure
     volumes:
@@ -17,12 +17,14 @@ services:
     ports:
       - 27017:27017
   redis:
+    container_name: redis
     image: redis
     ports:
       - 6379:6379
     restart: on-failure
 
-networks: 
-  skynet:
+networks:
+  default:
+    name: skynet
 volumes:
   db:

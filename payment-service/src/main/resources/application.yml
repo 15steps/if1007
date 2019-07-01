@@ -1,3 +1,5 @@
+redis:
+  host: ${REDIS_HOST:localhost}
 spring:
   main:
     web-application-type: none
