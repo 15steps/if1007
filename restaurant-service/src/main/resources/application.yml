@@ -1,11 +1,13 @@
 spring:
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+    host: ${RABBIT_HOST:localhost}
+    port: ${RABBIT_PORT:5672}
+    username: ${RABBIT_USER:guest}
+    password: ${RABBIT_PASSWORD:guest}
   cloud.stream:
     bindings:
       input:
         destination: credit-service-pipe
         group: credit-service
+server:
+  port: ${SERVER_PORT:9090}

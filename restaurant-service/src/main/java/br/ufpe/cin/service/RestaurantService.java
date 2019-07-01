@@ -32,6 +32,10 @@ public class RestaurantService {
         return orderRepository.findAllByRestaurantId(id);
     }
 
+    public void saveOrder(OrderP orderP) {
+        orderRepository.save(orderP);
+    }
+
     public void updateOrderStatus(OrderP orderNew, OrderStatus orderStatus){
         Optional<OrderP> orderOld = orderRepository.findById(orderNew.getId());
 

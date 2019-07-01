@@ -23,7 +23,8 @@ public class RestaurantProcessor {
                 orderMessage.getPayload().getRestaurantId(),
                 orderMessage.getPayload().getOrderItems());
 
-        restaurantService.updateOrderStatus(orderP, OrderStatus.PREPARING);
+        restaurantService.saveOrder(orderP);
+//        restaurantService.updateOrderStatus(orderP, OrderStatus.PREPARING);
     }
 
 }
