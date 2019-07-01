@@ -9,13 +9,13 @@ services:
     restart: on-failure
     networks: 
       - skynet
-  postgres:
-    image: postgres
+  mongo:
+    image: mongo
     restart: on-failure
     volumes:
-      - db:/var/lib/postgresql/data
+      - db:/data/db
     ports:
-      - 5432:5432
+      - 27017:27017
   redis:
     image: redis
     ports:
