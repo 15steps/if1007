@@ -1,7 +1,6 @@
 package br.ufpe.cin.service;
 
-import br.ufpe.cin.internal.OrderStatus;
-import br.ufpe.cin.model.OrderP;
+import br.ufpe.cin.internal.Order;
 import br.ufpe.cin.repository.OrderRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RestaurantService {
@@ -23,25 +21,16 @@ public class RestaurantService {
     }
 
 
-    public List<OrderP> getAllOrders(){
+    public List<Order> getAllOrders(){
         return orderRepository.findAll();
     }
 
 
-    public List<OrderP> getAllOrdersByRestaurantId(String id){
+    public List<Order> getAllOrdersByRestaurantId(String id){
         return orderRepository.findAllByRestaurantId(id);
     }
 
-    public void saveOrder(OrderP orderP) {
-        orderRepository.save(orderP);
-    }
-
-    public void updateOrderStatus(OrderP orderNew, OrderStatus orderStatus){
-        Optional<OrderP> orderOld = orderRepository.findById(orderNew.getId());
-
-        orderOld.ifPresent(order -> {
-            order.setStatus(orderStatus);
-            orderRepository.save(orderOld.get());
-        });
+    public void saveOrder(Order order) {
+        orderRepository.save(order);
     }
 }

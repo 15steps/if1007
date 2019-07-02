@@ -7,10 +7,14 @@ spring:
   cloud.stream:
     bindings:
       input:
-        destination: credit-service-pipe
-        group: credit-service
+        destination: restaurant-service-pipe
+        group: restaurant-service
+        consumer:
+          auto-bind-dlq: true
+          republish-to-dlq: true
   data:
     mongodb:
       host: ${MONGO_HOST:localhost}
+      database: orders
 server:
   port: ${SERVER_PORT:9090}

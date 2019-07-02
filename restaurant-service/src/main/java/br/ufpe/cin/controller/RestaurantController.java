@@ -1,6 +1,6 @@
 package br.ufpe.cin.controller;
 
-import br.ufpe.cin.model.OrderP;
+import br.ufpe.cin.internal.Order;
 import br.ufpe.cin.service.RestaurantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,12 +20,12 @@ public class RestaurantController {
     }
 
     @GetMapping
-    public List<OrderP> ListOrders() {
+    public List<Order> ListOrders() {
         return restaurantService.getAllOrders();
     }
 
     @GetMapping(value = "/{restaurantId}")
-    public List<OrderP> listOrdersByRestaurantId(@PathVariable String restaurantId){
+    public List<Order> listOrdersByRestaurantId(@PathVariable String restaurantId){
         return restaurantService.getAllOrdersByRestaurantId(restaurantId);
     }
 
