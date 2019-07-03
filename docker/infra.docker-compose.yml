@@ -27,6 +27,7 @@ services:
       - discovery.type=single-node
       - cluster.name=single-cluster
       - node.name=node1
+      - transport.host=localhost
 
   kibana:
     container_name: kibana
