@@ -25,6 +25,7 @@ public class ElasticsearchConfig {
         Settings settings = Settings.builder()
                 .put("cluster.name", "single-cluster")
                 .put("node.name", "node1")
+                .put("client.transport.sniff", true)
                 .build();
         TransportClient transportClient = new PreBuiltTransportClient(settings);
         transportClient.addTransportAddress(new TransportAddress(InetAddress.getByName(elasticHost), elasticPort));
