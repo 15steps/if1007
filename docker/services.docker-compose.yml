@@ -19,7 +19,8 @@ services:
       context: ../restaurant-service
     environment:
       - RABBIT_HOST=rabbit
-      - ELS_HOST=elasticsearch
+      - ELS_CLUSTER_NODES=elasticsearch:9300
+      - ELS_CLUSTER_NAME=single-cluster
 
 networks:
   default:

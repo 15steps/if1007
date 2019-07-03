@@ -12,9 +12,15 @@ spring:
         consumer:
           auto-bind-dlq: true
           republish-to-dlq: true
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true
+      cluster-nodes: ${ELS_CLUSTER_NODES:localhost:9300}
+      cluster-name: ${ELS_CLUSTER_NAME:elasticsearch}
   server:
     port: ${SERVER_PORT:9090}
-elasticsearch:
-  host: ${ELS_HOST:localhost}
-  port: ${ELS_PORT:9300}
+#elasticsearch:
+#  host: ${ELS_HOST:localhost}
+#  port: ${ELS_PORT:9300}
 
