@@ -8,20 +8,44 @@ services:
       - 15672:15672
       - 5672:5672
     restart: on-failure
-  mongo:
-    container_name: mongo
-    image: mongo
-    restart: on-failure
-    volumes:
-      - db:/data/db
+#  mongo:
+#    container_name: mongo
+#    image: mongo
+#    restart: on-failure
+#    volumes:
+#      - db:/data/db
+#    ports:
+#      - 27017:27017
+  els:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.2.0
     ports:
-      - 27017:27017
+      - 9200:9200
+      - 9300:9300
+    restart: on-failure
+    environment:
+      - discovery.type=single-node
+      - cluster.name=single-cluster
+      - node.name=node1
+
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:7.2.0
+    ports:
+      - 5601:5601
+
+
   redis:
     container_name: redis
     image: redis
     ports:
       - 6379:6379
     restart: on-failure
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - 3000:3000
 
 networks:
   default:

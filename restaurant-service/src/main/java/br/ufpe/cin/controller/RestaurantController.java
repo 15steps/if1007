@@ -19,10 +19,10 @@ public class RestaurantController {
         this.restaurantService = restaurantService;
     }
 
-    @GetMapping
-    public List<Order> ListOrders() {
-        return restaurantService.getAllOrders();
-    }
+//    @GetMapping
+//    public List<Order> ListOrders() {
+//        return restaurantService.getAllOrders();
+//    }
 
     @GetMapping(value = "/{restaurantId}")
     public List<Order> listOrdersByRestaurantId(@PathVariable String restaurantId){

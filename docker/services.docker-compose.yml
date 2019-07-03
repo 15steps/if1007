@@ -19,7 +19,7 @@ services:
       context: ../restaurant-service
     environment:
       - RABBIT_HOST=rabbit
-      - MONGO_HOST=mongo
+      - ELS_HOST=elasticsearch
 
 networks:
   default:
