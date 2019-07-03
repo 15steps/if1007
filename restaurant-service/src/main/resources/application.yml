@@ -20,5 +20,5 @@ spring:
     port: ${SERVER_PORT:9090}
 elasticsearch:
   host: ${ELS_HOST:localhost}
-  port: ${ELS_PORT:port}
+  port: ${ELS_PORT:9300}
 

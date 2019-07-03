@@ -27,7 +27,7 @@ public class ElasticsearchConfig {
                 .put("node.name", "node1")
                 .build();
         TransportClient transportClient = new PreBuiltTransportClient(settings);
-        transportClient.addTransportAddress(new TransportAddress(InetAddress.getByName(elasticHost), 9300));
+        transportClient.addTransportAddress(new TransportAddress(InetAddress.getByName(elasticHost), elasticPort));
         return transportClient;
     }
 
