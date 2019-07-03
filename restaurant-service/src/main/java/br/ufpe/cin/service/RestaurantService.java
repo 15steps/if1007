@@ -3,13 +3,14 @@ package br.ufpe.cin.service;
 import br.ufpe.cin.internal.Order;
 import br.ufpe.cin.model.RestaurantOrder;
 import br.ufpe.cin.repository.OrderRepository;
-import org.elasticsearch.rest.action.document.RestUpdateAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class RestaurantService {
@@ -24,18 +25,15 @@ public class RestaurantService {
     }
 
 
-//    public List<Order> getAllOrders(){
-//        return orderRepository.findAll();
-//    }
-
-
     public List<Order> getAllOrdersByRestaurantId(String id) {
 //        return orderRepository.findAllByRestaurantId(id);
         return null;
     }
 
     public void saveOrder(Order order) {
-        orderRepository.save(convertOrder(order));
+        logger.info("Saving new order");
+        RestaurantOrder restaurantOrder = orderRepository.save(convertOrder(order));
+        logger.info("New order saved to ELS: {}", restaurantOrder);
     }
 
     private RestaurantOrder convertOrder(Order order) {
@@ -47,5 +45,10 @@ public class RestaurantService {
                 .restaurantId(order.getRestaurantId())
                 .totalAmountDue(order.getTotalAmountDue())
                 .build();
+    }
+
+    public List<RestaurantOrder> getAllOrders() {
+        return StreamSupport
+                .stream(orderRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 }

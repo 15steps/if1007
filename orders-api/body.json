@@ -5,11 +5,11 @@
     {
       "item": {
         "id": 1,
-        "name": "Coca lata 350",
-        "description": "Bebida",
-        "price": 4.5
+        "name": "Pão com ovo",
+        "description": "Lanche",
+        "price": 8.9
       },
-      "quantity": 2
+      "quantity": 1
     }
   ],
   "cardInfo": {
