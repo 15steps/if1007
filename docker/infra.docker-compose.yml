@@ -24,7 +24,7 @@ services:
       - 9300:9300
     restart: on-failure
     environment:
-      - discovery.type=single-node
+#      - discovery.type=single-node
       - cluster.name=single-cluster
       - transport.host=0.0.0.0
       - http.host=0.0.0.0
