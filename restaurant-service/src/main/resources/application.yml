@@ -1,9 +1,9 @@
 spring:
-#  rabbitmq:
-#    host: ${RABBIT_HOST:localhost}
-#    port: ${RABBIT_PORT:5672}
-#    username: ${RABBIT_USER:guest}
-#    password: ${RABBIT_PASSWORD:guest}
+  rabbitmq:
+    host: ${RABBIT_HOST:localhost}
+    port: ${RABBIT_PORT:5672}
+    username: ${RABBIT_USER:guest}
+    password: ${RABBIT_PASSWORD:guest}
   cloud.stream:
     bindings:
       input:
@@ -12,10 +12,6 @@ spring:
         consumer:
           auto-bind-dlq: true
           republish-to-dlq: true
-  data:
-    mongodb:
-      host: ${MONGO_HOST:localhost}
-      database: orders
   server:
     port: ${SERVER_PORT:9090}
 elasticsearch:
