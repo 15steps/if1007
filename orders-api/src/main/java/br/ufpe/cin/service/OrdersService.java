@@ -4,6 +4,7 @@ import br.ufpe.cin.binding.OrderProducer;
 import br.ufpe.cin.dto.OrderDTO;
 import br.ufpe.cin.internal.Order;
 import br.ufpe.cin.internal.OrderConfirmation;
+import br.ufpe.cin.internal.Times;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
+import java.time.Instant;
 import java.util.UUID;
 
 @Service
@@ -32,6 +35,7 @@ public class OrdersService {
                 .orderItems(orderDTO.getItems())
                 .totalAmountDue(amountDue)
                 .cardInfo(orderDTO.getCardInfo())
+                .times(Times.builder().createdAt(Date.from(Instant.now())).build())
                 .build();
         producer.publish(order);
         return OrderConfirmation

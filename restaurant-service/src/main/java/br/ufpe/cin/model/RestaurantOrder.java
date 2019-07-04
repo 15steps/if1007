@@ -3,10 +3,13 @@ package br.ufpe.cin.model;
 import br.ufpe.cin.internal.CardInfo;
 import br.ufpe.cin.internal.OrderItem;
 import br.ufpe.cin.internal.OrderStatus;
+import br.ufpe.cin.internal.Times;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.util.List;
 
@@ -22,4 +25,6 @@ public class RestaurantOrder {
     private List<OrderItem> orderItems;
     private OrderStatus status;
     private Double totalAmountDue;
+    private @Field(type = FieldType.Nested, store = true)
+    Times times;
 }

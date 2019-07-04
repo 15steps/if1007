@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -32,6 +34,10 @@ public class RestaurantService {
 
     public void saveOrder(Order order) {
         logger.info("Saving new order");
+        Instant now = Instant.now();
+        Long createdAt = order.getTimes().getCreatedAt().toInstant().toEpochMilli();
+        order.getTimes().setPersistedAt(Date.from(now));
+        order.getTimes().setPlatformTime(now.toEpochMilli() - createdAt);
         RestaurantOrder restaurantOrder = orderRepository.save(convertOrder(order));
         logger.info("New order saved to ELS: {}", restaurantOrder);
     }
@@ -44,6 +50,7 @@ public class RestaurantService {
                 .orderItems(order.getOrderItems())
                 .restaurantId(order.getRestaurantId())
                 .totalAmountDue(order.getTotalAmountDue())
+                .times(order.getTimes())
                 .build();
     }
 

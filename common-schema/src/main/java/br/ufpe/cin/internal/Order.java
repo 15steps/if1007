@@ -22,4 +22,5 @@ public class Order {
     @Builder.Default
     private OrderStatus status = PAYMENT_PENDING;
     private Double totalAmountDue;
+    private Times times;
 }
